@@ -10,7 +10,7 @@ robots-own [
   EnemyNear?
   ProjectileNear?
   ProjectileFired?
-  Vision
+  Vision ;Range of vision in degrees
   inputs ;List of all inputs
 
   lives
@@ -40,44 +40,46 @@ to drawGrid
 end
 
 to init-globals
-  set b-range 3
-  set w-range 1
+  set b-range 2
+  set w-range 0.5
   set cone-length 60
 end
 
 to init-genomes
   ask robots [
-  set b0 (list ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2))
-  set b1 (list ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2))
-  set b2 (list ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2))
+    set b0 (list ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2))
+    set b1 (list ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2))
+    set b2 (list ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2) ((random-float b-range) - b-range / 2))
 
-  set b (list b0 b1 b2)
+    set b (list b0 b1 b2)
 
-  set w0.0 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w0.1 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w0.2 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w0.3 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w0.4 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w0.0 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w0.1 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w0.2 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w0.3 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w0.4 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
 
-  set w1.0 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w1.1 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w1.2 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w1.3 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w1.4 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w1.0 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w1.1 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w1.2 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w1.3 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w1.4 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
 
-  set w2.0 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w2.1 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w2.2 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w2.3 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
-  set w2.4 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w2.0 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w2.1 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w2.2 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w2.3 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
+    set w2.4 (list ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2) ((random-float w-range) - w-range / 2))
 
-  set w0 (list w0.0 w0.1 w0.2 w0.3 w0.4)
-  set w1 (list w1.0 w1.1 w1.2 w1.3 w1.4)
-  set w2 (list w2.0 w2.1 w2.2 w2.3 w2.4)
+    set w0 (list w0.0 w0.1 w0.2 w0.3 w0.4)
+    set w1 (list w1.0 w1.1 w1.2 w1.3 w1.4)
+    set w2 (list w2.0 w2.1 w2.2 w2.3 w2.4)
 
-  set w (list w0 w1 w2)
+    set w (list w0 w1 w2)
 
-  set inputs (list EnemyNear? ProjectileNear? ProjectileFired? Vision)
+    set inputs (list EnemyNear? ProjectileNear? ProjectileFired? Vision)
+
+    set chromosome (list w b)
   ]
 end
 
@@ -131,19 +133,19 @@ end
 ;Robot Actions ---------------------------------------------------------------
 
 to moveForward
-  ask robots [fd 1]
+  fd 1
 end
 
 to rotateRight
-  ask robots [rt 5]
+  rt 5
 end
 
 to rotateLeft
-  ask robots [lt 5]
+  lt 5
 end
 
 to shoot
-  ask robots [hatch-projectiles 1 [set size 2 set color red] set ProjectileFired? 1]
+  hatch-projectiles 1 [set size 2 set color red] set ProjectileFired? 1
 end
 
 
@@ -235,12 +237,10 @@ to neural-network
     if item 1 output = max output [rotateRight]
     if item 2 output = max output [rotateLeft]
     if item 3 output = max output [shoot]
-    set Vision 90 * cone-output
+    set Vision Vision * cone-output
 
     show output
     show cone-output
-
-
   ]
 
 
